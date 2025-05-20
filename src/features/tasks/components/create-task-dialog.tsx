@@ -17,23 +17,24 @@ import {
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { Textarea } from "@/components/ui/textarea.tsx";
+import { useDisclosure } from "@/hooks/use-disclosure.ts";
+import type { HTMLAttributes, ReactElement } from "react";
 import {
 	type CreateTaskFormInput,
 	useCreateTask,
-} from "@/features/tasks/hooks/use-create-task.ts";
-import { useDisclosure } from "@/hooks/use-disclosure.ts";
-import type { HTMLAttributes, ReactElement } from "react";
+} from "../hooks/use-create-task.ts";
 
 type Props = {
 	trigger: (
 		open: () => void,
 	) => ReactElement<HTMLAttributes<HTMLButtonElement>>;
+	createTask: (input: CreateTaskFormInput) => void;
 };
-export const CreateTaskDialog = ({ trigger }: Props) => {
+export const CreateTaskDialog = ({ trigger, createTask }: Props) => {
 	const form = useCreateTask();
 	const onSubmit = async (input: CreateTaskFormInput) => {
 		try {
-			console.log(input);
+			createTask(input);
 			close();
 		} catch {
 			// Error handling
