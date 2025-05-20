@@ -5,12 +5,12 @@ import {
 	CardFooter,
 	CardHeader,
 } from "@/components/ui/card.tsx";
-import { CreateTaskModal } from "@/features/tasks";
+import { CreateTaskDialog } from "@/features/tasks";
 
 function App() {
 	return (
 		<div className={"mx-auto max-w-3xl px-4 py-8"}>
-			<CreateTaskModal
+			<CreateTaskDialog
 				trigger={(open) => <Button onClick={open}>Add Task</Button>}
 			/>
 			<hr className={"mt-4"} />

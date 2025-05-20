@@ -29,7 +29,7 @@ type Props = {
 		open: () => void,
 	) => ReactElement<HTMLAttributes<HTMLButtonElement>>;
 };
-export const CreateTaskModal = ({ trigger }: Props) => {
+export const CreateTaskDialog = ({ trigger }: Props) => {
 	const form = useCreateTask();
 	const onSubmit = async (input: CreateTaskFormInput) => {
 		try {
