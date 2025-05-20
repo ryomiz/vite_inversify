@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card.tsx";
 import { CreateTaskDialog } from "@/features/tasks";
 
-function App() {
+export const App = () => {
 	return (
 		<div className={"mx-auto max-w-3xl px-4 py-8"}>
 			<CreateTaskDialog
@@ -36,6 +36,4 @@ function App() {
 			</div>
 		</div>
 	);
-}
-
-export default App;
+};
