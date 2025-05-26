@@ -18,7 +18,9 @@ import {
 import { Input } from "@/components/ui/input.tsx";
 import { Textarea } from "@/components/ui/textarea.tsx";
 import { useDisclosure } from "@/hooks/use-disclosure.ts";
+import { delay } from "@/utils/delay.ts";
 import type { HTMLAttributes, ReactElement } from "react";
+import { toast } from "sonner";
 import {
 	type CreateTaskFormInput,
 	useCreateTask,
@@ -34,10 +36,13 @@ export const CreateTaskDialog = ({ trigger, createTask }: Props) => {
 	const form = useCreateTask();
 	const onSubmit = async (input: CreateTaskFormInput) => {
 		try {
+			await delay(2000);
 			createTask(input);
+			toast("Task created successfully");
+			form.reset();
 			close();
 		} catch {
-			// Error handling
+			toast("Failed to create a task");
 		}
 	};
 
@@ -84,7 +89,11 @@ export const CreateTaskDialog = ({ trigger, createTask }: Props) => {
 						)}
 					/>
 					<DialogFooter>
-						<Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+						<Button
+							type="submit"
+							onClick={form.handleSubmit(onSubmit)}
+							loading={form.formState.isSubmitting}
+						>
 							Create
 						</Button>
 					</DialogFooter>
