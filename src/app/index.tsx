@@ -1,9 +1,62 @@
 import { Button } from "@/components/ui/button.tsx";
-import { CreateTaskDialog, Task, useTask } from "@/features/tasks";
+import {
+	CreateTaskDialog,
+	type ITask,
+	type ITaskGroup,
+	Task,
+	type TaskService,
+} from "@/features/tasks";
+import { SERVICE_IDENTIFIER, container } from "@/lib/di.ts";
+import { useMemo, useState } from "react";
+
+const INITIAL_TASK_GROUP: ITaskGroup = {
+	active: [
+		{
+			title: "Task1",
+			description: "Lorem ipsum",
+			status: "active",
+		},
+		{
+			title: "Task2",
+			description: "Lorem ipsum",
+			status: "active",
+		},
+	],
+	done: [
+		{
+			title: "Task3",
+			description: "Lorem ipsum",
+			status: "done",
+		},
+	],
+};
 
 export const App = () => {
-	const { taskGroup, createTask, undoTask, completeTask, deleteTask } =
-		useTask();
+	const taskService = useMemo<TaskService>(() => {
+		const service = container.get<TaskService>(SERVICE_IDENTIFIER.TaskService);
+		service.setInitialTaskGroup(INITIAL_TASK_GROUP);
+		return service;
+	}, []);
+
+	const [taskGroup, setTaskGroup] = useState<ITaskGroup>(
+		taskService.getTasks(),
+	);
+	const createTask = ({ title, description }: Omit<ITask, "status">) => {
+		taskService.createTask({ title, description });
+		setTaskGroup(taskService.getTasks());
+	};
+	const completeTask = (index: number) => {
+		taskService.completeTask(index);
+		setTaskGroup(taskService.getTasks());
+	};
+	const undoTask = (index: number) => {
+		taskService.undoTask(index);
+		setTaskGroup(taskService.getTasks());
+	};
+	const deleteTask = (index: number) => {
+		taskService.deleteTask(index);
+		setTaskGroup(taskService.getTasks());
+	};
 
 	return (
 		<div className={"mx-auto max-w-3xl px-4 py-8"}>

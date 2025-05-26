@@ -11,3 +11,7 @@ export type ICompletedTask = {
 	description: string;
 };
 export type ITask = IActiveTask | ICompletedTask;
+export type ITaskGroup = {
+	active: IActiveTask[];
+	done: ICompletedTask[];
+};
