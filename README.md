@@ -1,54 +1,32 @@
-# React + TypeScript + Vite
+# React Vite + InversifyJS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Application URL
+[https://vite-inversifyjs.pages.dev/](https://vite-inversifyjs.pages.dev/)
 
-Currently, two official plugins are available:
+## Time Spent
+6 hours in total
+- UI coding + logic implementation: 4 hours
+- Refactoring with InversifyJS: 2 hours
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+### Directory Structure
+This project is mainly based on [bulletproof react](https://github.com/alan2207/bulletproof-react/tree/master/apps/react-vite). 
 
-## Expanding the ESLint configuration
+A `features` directory is created to separate concerns by functionality, which improves code organisation and maintainability.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+I usually adopt this structure because
+- By organising code according to concerns, the codebase stays manageable and won't be overly complex.
+- It makes adding or deleting features easy, and when a destructive change occurs, it helps minimise its impact on the application.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Biome
+[Biome](https://biomejs.dev/)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+As a code formatting tool, I used Biome instead of ESLint and Prettier.
+Compare to ESlint, Biome has a much simpler configuration.  To speed up the development I adopted Biome and I believe that it's more suitable for small projects.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### UI Library (shadcn/ui)
+To build a polished and accessible application quickly, this project uses [shadcn/ui](https://ui.shadcn.com/).
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+This library is built on Tailwind CSS and provides a wide range of commonly used UI components essential for building modern web applications.
+
+Since it generates components directly into the project directory, we don’t need to worry about library updates, and customisation is easy both in terms of appearance and functionality.
